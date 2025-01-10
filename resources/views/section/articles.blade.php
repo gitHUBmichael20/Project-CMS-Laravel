@@ -8,7 +8,7 @@
         <div class="flex items-center justify-center bg-gray-100 dark:bg-gray-900 min-h-screen">
             <div class="max-w-4xl w-full sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg overflow-hidden">
-                    <img src="https://picsum.photos/1920/1200" alt="Article Image" class="w-[800px] h-[400px] object-cover">
+                    <img src="https://picsum.photos/1600/800" alt="Article Image" class="w-[800px] h-[400px] object-cover">
                     <div class="p-6">
                         <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">The title of the article</h1>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
@@ -30,5 +30,4 @@
             </div>
         </div>
     </div>
-    
 </x-app-layout>

@@ -38,8 +38,9 @@ class articleController extends Controller
     public function show($id)
     {
         $article = Article::findOrFail($id);
-        return response()->json($article);
+        return view('section.articles', ['article' => $article]);
     }
+
 
     // Update the specified article in storage
     public function update(Request $request, $id)

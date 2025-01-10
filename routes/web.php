@@ -8,17 +8,24 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/articles', function () {
-    return view('section.articles');
-})->name('articles');
+Route::get('/about', function () {
+    return view('section.about');
+})->name('about');
 
 Route::get('/browse', [articleController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('browse');
 
-// Route::get('/articles/{id}', [articleController::class, 'show'])
+// Route::get('/articles/{id}', [ArticleController::class, 'show'])
 //     ->middleware(['auth', 'verified'])
-//     ->name('read');
+//     ->name('articles');
+
+// Route::get('/articles', [ArticleController::class, 'show'])
+//     ->middleware(['auth', 'verified']);
+// Route::get('/articles/{id}', [ArticleController::class, 'show'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('articles');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
