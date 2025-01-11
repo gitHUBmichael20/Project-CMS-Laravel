@@ -3,6 +3,7 @@
 use App\Http\Controllers\articleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Middleware\RedirectIfNotAuthenticatedAdmin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,21 +30,23 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Halaman login admin
-    Route::get('/login', [AdminController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminController::class, 'login']);
+    Route::get('/login-admin', [AdminController::class, 'showLoginForm'])->name('login-admin');
+    Route::post('/login-admin', [AdminController::class, 'login-admin'])->name("login-admin");
 
     // Halaman registrasi admin
-    Route::get('/register', [AdminController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AdminController::class, 'register']);
+    Route::get('/register-admin', [AdminController::class, 'showRegistrationForm'])->name('register-admin');
+    Route::post('/register-admin', [AdminController::class, 'register'])->name("register-admin");
 
     // Logout
-    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::post('/logout-admin', [AdminController::class, 'logout'])->name('logout-admin');
 
     // Halaman dashboard admin setelah login
-    Route::middleware('auth:admin')->group(function () {
+    Route::middleware([RedirectIfNotAuthenticatedAdmin::class])->group(function () {
         Route::get('/dashboard', function () {
-            return 'Welcome to Admin Dashboard!';
+            return view('admin.dashboard');
         })->name('dashboard');
+    
+        Route::get('/dashboard', [ArticleController::class, 'managePost'])->name('admin.admin-manage');
     });
 });
 

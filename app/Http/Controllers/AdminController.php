@@ -32,7 +32,7 @@ class AdminController extends Controller
 
         if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
@@ -40,26 +40,23 @@ class AdminController extends Controller
         ]);
     }
 
+
     public function register(Request $request)
     {
-        // Validate the registration form
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:admins,email',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
-        // Create the admin user
         $admin = Admin::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
 
-        // Log the admin in
         Auth::guard('admin')->login($admin);
 
-        // Redirect to the dashboard
         return redirect()->route('admin.dashboard');
     }
 

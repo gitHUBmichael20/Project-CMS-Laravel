@@ -14,6 +14,12 @@ class articleController extends Controller
         return view('browse', compact('articles'));
     }
 
+    public function managePost()
+    {
+        $articles = article::paginate(15);
+        return view('admin.dashboard', compact('articles'));
+    }
+
     // Store a newly created article in storage
     public function store(Request $request)
     {
