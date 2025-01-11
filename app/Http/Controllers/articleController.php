@@ -41,7 +41,6 @@ class articleController extends Controller
         return view('section.articles', ['article' => $article]);
     }
 
-
     // Update the specified article in storage
     public function update(Request $request, $id)
     {

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-6">
         <div class="flex items-center justify-center bg-gray-100 dark:bg-gray-900 min-h-screen">
             <section class="py-24 relative xl:mr-0 lg:mr-5 mr-0">
                 <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
@@ -16,12 +16,10 @@
                                     <h6 class="text-gray-400 dark:text-gray-300 text-base font-normal leading-relaxed">About Us</h6>
                                     <div class="w-full flex-col justify-start lg:items-start items-center gap-3 flex">
                                         <h2 class="text-indigo-700 dark:text-indigo-400 text-4xl font-bold font-manrope leading-normal lg:text-start text-center">
-                                            The Tale of Our Achievement Story
+                                            The Long Story of my Journey
                                         </h2>
                                         <p class="text-gray-500 dark:text-gray-300 text-base font-normal leading-relaxed lg:text-start text-center">
-                                            Our achievement story is a testament to teamwork and perseverance. Together, we've
-                                            overcome challenges, celebrated victories, and created a narrative of progress and
-                                            success.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, natus eum dolor, itaque laudantium quidem deleniti impedit veniam nemo nam et odio, omnis dignissimos maxime illum dolorum quos odit. Quas!
                                         </p>
                                     </div>
                                 </div>
@@ -58,12 +56,7 @@
                                 </div>
                             </div>
                             <button class="sm:w-fit w-full group px-3.5 py-2 bg-indigo-50 dark:bg-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-800 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] transition-all duration-700 ease-in-out justify-center items-center flex">
-                                <span class="px-1.5 text-indigo-600 dark:text-indigo-400 text-sm font-medium leading-6 group-hover:-translate-x-0.5 transition-all duration-700 ease-in-out">Read More</span>
-                                <svg class="group-hover:translate-x-0.5 transition-all duration-700 ease-in-out"
-                                    xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                    <path d="M6.75265 4.49658L11.2528 8.99677L6.75 13.4996" stroke="#4F46E5" stroke-width="1.6"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
+                                <span class="px-1.5 text-indigo-600 dark:text-black text-sm font-medium leading-6 group-hover:-translate-x-0.5 transition-all duration-700 ease-in-out">Github</span>
                             </button>
                         </div>
                         <div class="w-full lg:justify-start justify-center items-start flex">
