@@ -13,18 +13,26 @@ class articleSeeder extends Seeder
      *
      * @return void
      */
+    
     public function run()
     {
         $faker = Faker::create();
-
+    
         // Create 100 article records
         for ($i = 0; $i < 100; $i++) {
-            article::create([
+            // Generate random created_at and updated_at timestamps
+            $createdAt = $faker->dateTimeBetween('-1 year', 'now'); // Random date within the past year
+            $updatedAt = $faker->dateTimeBetween($createdAt, 'now'); // Random update date, after created_at
+    
+            Article::create([
                 'title' => $faker->sentence(6, true),
                 'content' => $faker->paragraphs(5, true),
                 'image' => 'https://picsum.photos/1920/1080?random=' . $i,
-                'author' => 'Michael'
+                'author' => 'Michael',
+                'created_at' => $createdAt,
+                'updated_at' => $updatedAt
             ]);
         }
     }
+    
 }

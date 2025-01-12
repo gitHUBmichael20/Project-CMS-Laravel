@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Article extends Model
 {
     use HasFactory;
-
-    protected $table = 'article'; // Nama tabel
+    protected $table = 'article';
     protected $fillable = [
         'title',
         'content',
-        'image',
         'author',
+        'image',
     ];
+    public $timestamps = true;
 
-    // Tambahkan format waktu untuk created_at
-    protected $dates = ['created_at', 'updated_at'];
+    public function getImageAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }
-

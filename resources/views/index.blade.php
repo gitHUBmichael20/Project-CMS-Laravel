@@ -170,7 +170,7 @@
                         <a href="#" class="hover:underline me-4 md:me-6">About</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                        <a href="{{ route('admin.admin.admin-manage') }}" class="hover:underline me-4 md:me-6">Admin Dashboard</a>
                     </li>
                     <li>
                         <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>

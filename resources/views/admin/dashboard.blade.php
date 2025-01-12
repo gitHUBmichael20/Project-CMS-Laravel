@@ -51,9 +51,13 @@
                     <button onclick="showContent('manage')"
                         class="nav-btn font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none"
                         data-content="manage">Manage</button>
-                    <button onclick="showContent('settings')"
-                        class="nav-btn font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none"
-                        data-content="settings">Settings</button>
+                    <form action="{{ route('admin.logout-admin') }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="nav-btn font-medium text-red-600 hover:text-red-900 dark:text-red-300 dark:hover:text-red-100 focus:outline-none"
+                            data-content="logout">Logout</button>
+                    </form>
+
                 </div>
             </div>
         </nav>
@@ -72,33 +76,6 @@
                 <div class="p-6">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">User Management</h2>
                     @include('admin.admin-manage')
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Content -->
-        <div id="settings-content" class="content-section hidden">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Site Settings</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 border-b dark:border-gray-700">
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-800 dark:text-gray-200">Dark Mode</h3>
-                                <p class="text-gray-600 dark:text-gray-400">Toggle dark mode appearance</p>
-                            </div>
-                            <button
-                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Toggle</button>
-                        </div>
-                        <div class="flex items-center justify-between p-4 border-b dark:border-gray-700">
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-800 dark:text-gray-200">Notifications</h3>
-                                <p class="text-gray-600 dark:text-gray-400">Manage notification settings</p>
-                            </div>
-                            <button
-                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Configure</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

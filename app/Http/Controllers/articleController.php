@@ -2,73 +2,119 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 
 class articleController extends Controller
 {
-    // Display a listing of the articles
+
     public function index()
     {
         $articles = Article::paginate(9);
         return view('browse', compact('articles'));
     }
 
-    public function managePost()
+    public function managePost(Request $request)
     {
-        $articles = article::paginate(15);
+
+        $search = $request->get('search');
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+
+
+        $articles = Article::when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('content', 'like', '%' . $search . '%');
+        })
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate(10);
         return view('admin.dashboard', compact('articles'));
     }
 
-    // Store a newly created article in storage
+
     public function store(Request $request)
     {
+
         $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title' => 'required|string|max:255',
-            'content' => 'required',
+            'caption' => 'required|string',
             'author' => 'required|string|max:255',
-            'image' => 'required|string',
         ]);
 
-        $article = Article::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'author' => $request->author,
-            'image' => $request->image,
+
+        if ($request->hasFile('image')) {
+
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+
+            return back()->withErrors(['image' => 'Image is required.']);
+        }
+
+
+        Article::create([
+            'title' => $request->input('title'),
+            'content' => $request->input('caption'),
+            'image' => $imagePath,
+            'author' => $request->input('author'),
         ]);
 
-        return response()->json($article, 201);
+
+        return back()->with('success', 'Article uploaded successfully!');
     }
 
-    // Display the specified article
+
     public function show($id)
     {
         $article = Article::findOrFail($id);
         return view('section.articles', ['article' => $article]);
     }
 
-    // Update the specified article in storage
-    public function update(Request $request, $id)
+
+    public function update(Request $request)
     {
-        $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'content' => 'sometimes|required',
-            'author' => 'sometimes|required|string|max:255',
-            'image' => 'sometimes|required|string',
-        ]);
+        try {
+            $request->validate([
+                'id' => 'required|exists:articles,id',
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-        $article = Article::findOrFail($id);
-        $article->update($request->all());
+            $article = Article::findOrFail($request->id);
 
-        return response()->json($article);
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+
+                if ($article->image && Storage::disk('public')->exists($article->image)) {
+                    Storage::disk('public')->delete($article->image);
+                }
+
+                $article->image = $imagePath;
+            }
+
+            $article->update([
+                'title' => $request->title,
+                'content' => $request->content,
+            ]);
+
+            return redirect()->back()->with('success', 'Article updated successfully!');
+        } catch (\Exception $e) {
+            Log::error('Article update error: ' . $e->getMessage());
+            return redirect()->back()
+                ->with('error', 'Failed to update article. Please try again.')
+                ->withInput();
+        }
     }
 
-    // Remove the specified article from storage
     public function destroy($id)
     {
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return response()->json(['message' => 'Article deleted successfully.']);
+        return redirect()->back()->with('success', 'Article deleted successfully!');
     }
 }

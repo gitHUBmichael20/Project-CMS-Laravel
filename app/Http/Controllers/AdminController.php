@@ -32,7 +32,7 @@ class AdminController extends Controller
 
         if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return redirect()->route('admin.dashboard');
+            return redirect('/admin/dashboard');
         }
 
         return back()->withErrors([
@@ -57,7 +57,7 @@ class AdminController extends Controller
 
         Auth::guard('admin')->login($admin);
 
-        return redirect()->route('admin.dashboard');
+        return redirect('/admin/dashboard');
     }
 
     public function logout(Request $request)
@@ -66,8 +66,9 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect('/admin/login-admin');
     }
+
 
     /**
      * Show the form for creating a new resource.
