@@ -15,6 +15,9 @@
             <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:bg-gray-700 dark:text-gray-200">
+            @error('email')
+                <p class="text-sm text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Password -->
@@ -33,7 +36,8 @@
         </div>
 
         <div class="flex items-center justify-between mb-4">
-            <a href="{{route('admin.login-admin')}}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Already have an account?</a>
+            <a href="{{ route('admin.login-admin') }}"
+                class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Already have an account?</a>
         </div>
 
         <!-- Submit Button -->
@@ -44,5 +48,4 @@
             </button>
         </div>
     </form>
-    
 </x-guest-layout>

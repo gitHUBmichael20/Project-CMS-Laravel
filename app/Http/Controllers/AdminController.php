@@ -43,22 +43,31 @@ class AdminController extends Controller
 
     public function register(Request $request)
     {
+        // Validate the input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:admins,email',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
+        // Check if the email already exists
+        if (Admin::where('email', $validated['email'])->exists()) {
+            return back()->withErrors(['email' => 'This email is already registered.'])->withInput();
+        }
+
+        // Create the admin account
         $admin = Admin::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
 
+        // Log the admin in
         Auth::guard('admin')->login($admin);
 
         return redirect('/admin/dashboard');
     }
+
 
     public function logout(Request $request)
     {
