@@ -55,8 +55,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
-// Route::post('/articles', [articleController::class, 'store']);
-Route::put('/articles/{id}', [articleController::class, 'update']);
-Route::delete('/articles/{id}', [articleController::class, 'destroy']);
-
 require __DIR__ . '/auth.php';
