@@ -42,7 +42,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // CRUD
     Route::post('/upload-image', [articleController::class, 'store'])->name('upload-image');
-    Route::put('/articles/update', [ArticleController::class, 'update'])->name('articles.update');
+    Route::patch('/articles/update', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/articles/delete/{id}', [ArticleController::class, 'destroy'])->name('articles.delete');
 
     // Halaman dashboard admin setelah login

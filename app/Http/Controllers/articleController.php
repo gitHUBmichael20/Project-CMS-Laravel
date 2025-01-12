@@ -76,39 +76,32 @@ class articleController extends Controller
 
     public function update(Request $request)
     {
-        try {
-            $request->validate([
-                'id' => 'required|exists:articles,id',
-                'title' => 'required|string|max:255',
-                'content' => 'required|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
+        // Log the incoming request data
+        Log::info($request->all());  // Log the request data
 
-            $article = Article::findOrFail($request->id);
+        // Validate the incoming request data
+        $request->validate([
+            'id' => 'required|exists:article,id',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'author' => 'required|string|max:255',
+        ]);
 
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images', 'public');
+        // Find the article by ID
+        $article = Article::findOrFail($request->id);
 
-                if ($article->image && Storage::disk('public')->exists($article->image)) {
-                    Storage::disk('public')->delete($article->image);
-                }
+        // Update the article fields
+        $article->title = $request->title;
+        $article->content = $request->content;
+        $article->author = $request->author;
 
-                $article->image = $imagePath;
-            }
+        // Save the updated article
+        $article->save();
 
-            $article->update([
-                'title' => $request->title,
-                'content' => $request->content,
-            ]);
-
-            return redirect()->back()->with('success', 'Article updated successfully!');
-        } catch (\Exception $e) {
-            Log::error('Article update error: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('error', 'Failed to update article. Please try again.')
-                ->withInput();
-        }
+        // Redirect or return response
+        return redirect('/admin/dashboard')->with('success', 'Article updated successfully');
     }
+
 
     public function destroy($id)
     {
