@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends Model
 {
@@ -16,12 +17,19 @@ class Article extends Model
         'content',
         'author',
         'image',
+        'admin_id',
     ];
 
     public $timestamps = true;
 
     public function getImageAttribute($value)
     {
-        return asset('storage/' . $value); // Generates the full URL to access the image
+        return asset('storage/' . $value);
+    }
+
+    // Relasi ke Admin
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

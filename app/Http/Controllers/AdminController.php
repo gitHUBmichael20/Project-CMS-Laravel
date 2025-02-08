@@ -32,7 +32,8 @@ class AdminController extends Controller
 
         if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return redirect('/admin/dashboard');
+            // return redirect('/admin/dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
@@ -66,6 +67,7 @@ class AdminController extends Controller
         Auth::guard('admin')->login($admin);
 
         return redirect('/admin/dashboard');
+        // return redirect()->route();
     }
 
 
@@ -76,5 +78,6 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/admin/login-admin');
+        // return redirect()->route('admin.login-admin');
     }
 }
