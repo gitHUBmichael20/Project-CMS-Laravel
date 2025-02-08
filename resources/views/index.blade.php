@@ -10,7 +10,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body>
+<body class="bg-white dark:bg-gray-900">
     <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed w-full">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -157,7 +157,7 @@
         </section>
     </main>
 
-    <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+    <footer class="m-4 p-4 rounded-lg shadow-lg bg-white/30 backdrop-blur-lg dark:bg-gray-800/50">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
